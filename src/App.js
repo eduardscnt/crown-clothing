@@ -4,14 +4,10 @@ import { useDispatch } from 'react-redux';
 
 import { Routes, Route } from "react-router-dom";
 
-
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from './utils/firebase/firebase.utils';
-
-
-
 
 import Home from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
