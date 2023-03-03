@@ -18,9 +18,9 @@ import { NavigationContainer,LogoContainer,NavLinks,NavLink } from './navigation
 const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  //const {isCartOpen} = useContext(CartContext)
   const isCartOpen = useSelector(selectIsCartOpen);
-  const signOutUser = () =>dispatch(signOutStart())
+
+  const signOutUser = () => dispatch(signOutStart());
 
   return (
     <Fragment>
@@ -29,22 +29,18 @@ const Navigation = () => {
           <CrwnLogo className='logo' />
         </LogoContainer>
         <NavLinks>
-          <NavLink to='/shop'>
-            SHOP
-          </NavLink>
+          <NavLink to='/shop'>SHOP</NavLink>
 
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>
               SIGN OUT
             </NavLink>
           ) : (
-            <NavLink  to='/auth'>
-              SIGN IN
-            </NavLink>
+            <NavLink to='/auth'>SIGN IN</NavLink>
           )}
-          <CartIcon/>
+          <CartIcon />
         </NavLinks>
-        {isCartOpen&&<CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </NavigationContainer>
       <Outlet />
     </Fragment>
