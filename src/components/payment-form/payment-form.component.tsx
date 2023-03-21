@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,FormEvent } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -21,7 +21,7 @@ const PaymentForm = ()=>{
     const [isProcessingPayment,setIsProccesingPayment] = useState(false);
 
     
-    const paymentHandler = async (e) =>{
+    const paymentHandler = async (e:FormEvent<HTMLFormElement>) =>{
         e.preventDefault(); 
 
         if(!stripe || !elements){
@@ -39,11 +39,15 @@ const PaymentForm = ()=>{
         }).then((res) => res.json());
 
 
-        const {paymentIntent:{client_secret}} = response;
+        const {paymentIntent:{client_secret},} = response;
+
+        const cardDetails = elements.getElement(CardElement);
+
+        if(cardDetails===null)return;
 
         const paymentResult = await stripe.confirmCardPayment(client_secret,{
             payment_method:{
-                card:elements.getElement(CardElement),
+                card:cardDetails,
                 billing_details:{
                     name: currentUser? currentUser.displayName : 'Guest', 
                 },
